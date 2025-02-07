@@ -1,29 +1,37 @@
-import Navbar from "./components/Navbar"
-import Footer from "./components/Footer"
-import Sidebar from "./components/Sidebar"
-import List from "./components/FoodList";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import Dashboard from "./components/Dashboard";
+import ItemDetails from "./components/ItemDetails";
+import AboutPage from "./components/AboutPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      
-      {/* Sidebar & Main Content Container */}
-      <div className="main-container">
-        <Sidebar />
-        <div className="content">
-          <h2>Welcome to The Recipe App</h2>
-          <p>Explore delicious recipes from around the world!</p>
+    <Router>
+      <div className="app">
+        <Navbar />
+        
+        <div className="main-container">
+          <Sidebar />
+          <div className="content">
+            <h2>Welcome to The Recipe App</h2>
+            <p>Explore delicious recipes from around the world!</p>
+          </div>
         </div>
-      </div>
 
-      <div>
-        <List />
-      </div>
+        <Routes>
+          <Route path="/" element={<Dashboard />} /> 
+          <Route path="/item/:id" element={<ItemDetails />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="*" element={<NotFoundPage />} /> 
+        </Routes>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
-export default App
+export default App;

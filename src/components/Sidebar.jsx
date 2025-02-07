@@ -1,10 +1,16 @@
+import { Link } from 'react-router-dom';
+
 const Sidebar = () => {
   return (
     <aside className="sidebar">
       <nav>
         <ul>
-          <a href="/">Home</a>
-          <a href="/">About</a>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/about">About</Link>
+          </li>
         </ul>
       </nav>
     </aside>
