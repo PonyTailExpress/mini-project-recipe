@@ -1,22 +1,39 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import foodData from "../data/foodData.json";
+import UpdateItemForm from "../components/UpdateItemForm";
 
-const ItemDetails = () => {
-  const { id } = useParams();
-  const item = foodData.find((item) => item.id === id);
+const ItemDetails = ({ onUpdateItem }) => {
+  const { id } = useParams(); 
+  const navigate = useNavigate();
 
-  if (!item) {
-    return <p>Item not found</p>;
-  }
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    const foundItem = foodData.find((item) => item.id === id);
+    if (foundItem) {
+      setItem(foundItem);
+    } else {
+      navigate("/404");
+    }
+  }, [id, navigate]);
+
+  const handleUpdateItem = (updatedItem) => {
+    onUpdateItem(updatedItem);
+    navigate("/"); 
+  };
+
+  if (!item) return <div>Loading...</div>;
 
   return (
-    <div className="content">
-      <h2>{item.name}</h2>
+    <div className="item-details">
+      <h2>Item Details</h2>
       <img src={item.image} alt={item.name} className="item-image" />
-      <p><strong>Calories:</strong> {item.calories}</p>
-      <p><strong>Servings:</strong> {item.servings}</p>
-      <p><strong>Description:</strong> {item.description || "No description available"}</p>
+      <p>Name: {item.name}</p>
+      <p>Calories: {item.calories}</p>
+
+      {/* Pass the item and handleUpdateItem to UpdateItemForm */}
+      <UpdateItemForm item={item} onUpdateItem={handleUpdateItem} />
     </div>
   );
 };
