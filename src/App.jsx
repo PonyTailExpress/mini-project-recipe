@@ -13,7 +13,7 @@ import './index.css';
 function App() {
   const [items, setItems] = useState(foodData);
 
-  const handleUpdateItem = (updatedItem) => {
+  const handleUpdateItem = (updatedItem) => {   
     setItems(items.map(item => item.id === updatedItem.id ? updatedItem : item));
   };
 
@@ -25,9 +25,9 @@ function App() {
           <Sidebar />
           <div className="content">
             <Routes>
-              <Route path="/" element={<Dashboard items={items} />} />
+              <Route path="/" element={<Dashboard items={items} setItems={setItems} />} />
               <Route path="/about" element={<AboutPage />} />
-              <Route path="/item/:id" element={<ItemDetails items={items} onUpdateItem={handleUpdateItem} />} />
+              <Route path="/item/:id" element={<ItemDetails items={items} setItems={setItems} onUpdateItem={handleUpdateItem} />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>

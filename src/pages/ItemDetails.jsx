@@ -32,7 +32,7 @@ const ItemDetails = ({ onUpdateItem }) => {
       <p>Name: {item.name}</p>
       <p>Calories: {item.calories}</p>
 
-      {/* Pass the item and handleUpdateItem to UpdateItemForm */}
+
       <UpdateItemForm item={item} onUpdateItem={handleUpdateItem} />
     </div>
   );

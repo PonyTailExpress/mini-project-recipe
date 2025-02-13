@@ -2,16 +2,8 @@ import React, { useState } from 'react';
 import FoodList from '../components/FoodList';
 import AddItemForm from '../components/AddItemForm';
 
-const Dashboard = () => {
-  const [items, setItems] = useState([
-    {
-      id: "9e7f0d61-aa6b-418a-b56a-6418d19e6e1d",
-      name: "Pizza",
-      calories: 400,
-      image: "https://i.imgur.com/eTmWoAN.png",
-      servings: 1,
-    },
-  ]);
+const Dashboard = ({items}) => {
+
 
   const handleAddItem = (newItem) => {
     setItems([...items, newItem]);

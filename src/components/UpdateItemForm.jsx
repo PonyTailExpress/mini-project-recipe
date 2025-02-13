@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 
 const UpdateItemForm = ({ item, onUpdateItem }) => {
-  const [name, setName] = useState(item.name);
-  const [calories, setCalories] = useState(item.calories);
+  const [name, setName] = useState(item.name || ""); 
+  const [calories, setCalories] = useState(item.calories || ""); 
 
   useEffect(() => {
-    setName(item.name);
-    setCalories(item.calories);
-  }, [item]); 
+    if (item) {
+      setName(item.name);
+      setCalories(item.calories);
+    }
+  }, [item]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedItem = { ...item, name, calories };
+    const updatedItem = {
+      ...item,
+      name,
+      calories: Number(calories),
+    };
     onUpdateItem(updatedItem); 
   };
 
@@ -24,6 +30,7 @@ const UpdateItemForm = ({ item, onUpdateItem }) => {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -32,6 +39,7 @@ const UpdateItemForm = ({ item, onUpdateItem }) => {
           type="number"
           value={calories}
           onChange={(e) => setCalories(e.target.value)}
+          required
         />
       </div>
       <button type="submit">Update</button>
